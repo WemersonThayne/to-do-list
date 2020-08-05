@@ -3,15 +3,17 @@ var count = 1;
 var idEditActual = 0;
 
 function addItem() {
-
+    
     let item = document.getElementById('box');
     let list_item = document.getElementById('listItem');
+
     if (item.value.trim() !== '' && idEditActual === 0) {
+
         // Criar o elemento para adicionar na lista
         let criarElementoLi = document.createElement('LI');
         criarElementoLi.appendChild(document.createTextNode(item.value));
         criarElementoLi.setAttribute("id", count++);
-
+        
         /** Adiciona no final da LI um X para remover o item  */
         let spanClose = addRemoveIcon();
         criarElementoLi.appendChild(spanClose);
@@ -45,14 +47,16 @@ function addItem() {
 }
 
 function addRemoveIcon() {
-    let span = document.createElement('SPAN');
-    span.className = 'close glyphicon glyphicon-remove';
-    return span;
+    return createSpan('close glyphicon glyphicon-remove');
 }
 
 function addEditIcon() {
+    return createSpan('editar glyphicon glyphicon-edit');
+}
+
+function createSpan(classes){
     let span = document.createElement('SPAN');
-    span.className = 'editar glyphicon glyphicon-edit';
+    span.className = classes;
     return span;
 }
 
@@ -79,8 +83,8 @@ function editElement(element, item) {
     let spanClose = addRemoveIcon();
     let spanEditar = addEditIcon();
 
-    element.appendChild(addRemoveIcon());
-    element.appendChild(addEditIcon());
+    element.appendChild(spanClose);
+    element.appendChild(spanEditar);
 
     removeItem(spanClose, element);
     editItem(spanEditar, element);
